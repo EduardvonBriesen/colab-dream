@@ -12,8 +12,8 @@ import torch
 import numpy as np
 import requests
 
-openai.api_key = "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"
-render_url = "https://localhost:8000/prompt"
+openai.api_key = os.getenv("OPENAI_API_KEY")
+render_url = "http://localhost:8000/prompt"
 
 dream_list = []
 prompt_list = []
@@ -43,6 +43,7 @@ def main(model, english, verbose, energy, pause, dynamic_energy, save_file):
     while True:
         # print(result_queue.get())
         add_dream(result_queue.get())
+        # send_dream(result_queue.get())
 
 
 def record_audio(audio_queue, energy, pause, dynamic_energy, save_file, temp_dir):
@@ -102,7 +103,7 @@ def add_dream(dream):
     )
     print("New prompt:" + response.choices[0].text)
     prompt_list.append(response.choices[0].text)
-    send_dreams(response.choices[0].text)
+    send_dream(response.choices[0].text)
 
 
 def generate_prompt():
@@ -117,8 +118,10 @@ def generate_prompt():
 
 
 # Sends dream via rest api
-def send_dreams(dream):
-    response = requests.post(render_url, json={"prompt": dream})
+def send_dream(dream):
+    print("Sending dream")
+    json = {"prompt": dream}
+    response = requests.post(render_url, json=json)
     if response.status_code == 200:
         print("Dream sent successfully")
     else:
