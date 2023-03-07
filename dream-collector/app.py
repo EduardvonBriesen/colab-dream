@@ -13,7 +13,7 @@ import numpy as np
 import requests
 
 openai.api_key = "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"
-render_url = "https://localhost:5000/render"
+render_url = "https://localhost:8000/prompt"
 
 dream_list = []
 prompt_list = []
