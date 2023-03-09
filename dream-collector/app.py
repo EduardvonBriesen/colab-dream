@@ -84,7 +84,7 @@ def transcribe_forever(audio_queue, result_queue, audio_model, english, verbose,
 
         if not verbose:
             predicted_text = result["text"]
-            result_queue.put_nowait("You said: " + predicted_text)
+            result_queue.put_nowait(predicted_text)
         else:
             result_queue.put_nowait(result)
 
@@ -96,7 +96,7 @@ def add_dream(dream):
     dream_list.append(dream)
     print("Adding dream: " + dream)
     response = openai.Completion.create(
-        model="text-davinci-002",
+        model="text-davinci-003",
         prompt=generate_prompt(),
         temperature=1,
         max_tokens=100,
@@ -107,11 +107,7 @@ def add_dream(dream):
 
 
 def generate_prompt():
-    # print("Generating prompt")
-    # open text file in read mode
-    # text_file = open("example_prompts.txt", "r")
-    # text_file.close()
-
+    print("Generating prompt")
     return """Generate a new prompt with the phrases {}""".format(
         dream_list
     )
@@ -129,28 +125,3 @@ def send_dream(dream):
 
 
 main()
-
-# def get_image(prompt):
-#     base_url = "https://api.newnative.ai/stable-diffusion?prompt="
-
-#     response = requests.request("GET", base_url + prompt)
-#     data = response.json()
-#     print(data["image_url"])
-
-
-# print("Starting")
-# while True:
-#     input_text = ""
-#     with sr.Microphone() as source:
-#         print("Talk")
-#         audio_text = r.listen(source)
-#         print("Time over, thanks")
-
-#         try:
-#             # using google speech recognition
-#             input_text = r.recognize_google(audio_text)
-#             print("Text: "+input_text)
-#         except:
-#             print("Sorry, I did not get that")
-
-#     add_dream(input_text)
