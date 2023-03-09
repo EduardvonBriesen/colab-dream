@@ -8,7 +8,6 @@ from PIL import Image, PngImagePlugin
 
 from helper.settings_parser import read_yaml, load_prompts
 from request import video_request
-#import settings.settingsParser as settingsParser
 
 class ImageGenerator:
     def __init__(self, settings = None, output_path=Path('generated_images/')):
@@ -65,7 +64,7 @@ class ImageGenerator:
         """
         headers = {"Content-Type": "application/json; charset=utf-8"}
 
-        payload = load_prompts('video.json')
+        payload = load_prompts('struct/video.json')
 
         #payload = video_request(prompt=prompt)
 
