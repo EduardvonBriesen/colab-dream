@@ -1,0 +1,56 @@
+
+FPS: 8
+Steps: 20
+Max_Frames: 1224
+
+Strength
+0: (-0.13*(cos(3.141*t/31)**100)+0.63)
+Trans_z
+0: (0.5*(sin(2*300.14*t/1300)**3)+.25), 80: (3*(sin(3.141*t/50)**3)+.75)
+Rot_x
+0: (0.25*sin(2*300.141*t/750)), 80: (0.25*sin(2*3.141*t/250))
+Rot_y
+0:(0.6*cos(2*300.141*t/950)), 80: (0.25*sin(2*3.141*t/250))
+Rot_z
+0:(1*sin(2*30.141*t/250)), 80: (0.5*sin(2*3.141*t/250))
+
+Full_Set
+{
+    "0": "A beautiful sunset over the ocean, realistic, extremely detailed, sharp focus, wide view, smooth, digital illustration, by james jean, by rossdraws, artgerm",
+    "72": "The sun paints the sky with hues of orange, pink, and purple, casting a warm glow over the water, wide view, long view, uncropped, by tomm moore, jean pierre jeunet tim burton, wes anderson ; 4 k 8 k hd high resolution, wide range of colors",
+    "144": "A few clouds in the sky catch the light, creating a stunning contrast against the vibrant colors of the sunset, A beautiful oil painting by rembrandt, trending on art station, realistic and highly detailed",
+    "216": "A flock of seagulls fly across the sunset, creating a striking silhouette against the colorful sky, cute, extremely detailed, sharp focus, wide view, smooth, digital illustration, by james jean, by rossdraws, artgerm",
+    "288": "The sun dips below the horizon, leaving the sky a deep shade of blue, realistic, extremely detailed, sharp focus, wide view, smooth, digital illustration, by james jean, by rossdraws, artgerm",
+    "360": "A bustling city street at night rises up from the ocean, surreal concept art digital painting, in the style of aides lapin by James jean, highly detailed and realistic",
+    "432": "The neon lights of the buildings and billboards illuminate the street with a colorful glow, making it almost as bright as day, hyper realistic, intricate and ornate, gold and turqoise filigree, blue and white porcelai, microdetail, 8h, trending on art station",
+    "504": "People hurry along the sidewalks, their footsteps echoing against the pavement, corporate office setting by James jean Jim Henson j.c. Leyendecker Wes Anderson",
+    "576": "A street performer draws a crowd with their impressive talent, throwing torches into the air, octane 8k render, finely detailed color pencil illustration art by miyazaki, photorealistic",
+    "648": "A snowy mountain peak generates from the street in the style of shangri la by takashi murakami",
+    "720": "The snow-covered mountain is illuminated by the moonlight, casting a soft glow over the landscape, a highly detailed beautiful digital art concept art, extremely detailed, dramatic lighting, trending on art station",
+    "792": "A lone wolf howls at the moon, its voice echoing across the mountain, ultra detailed digital pencil and watercolor and llustration, 4k 8k hd high resolution, cloud of white smoke",
+    "864": "The wolf disappears into the snow, leaving only the moonlight to illuminate the mountain, rococo, sharp focus, trending on artstation, cinematic lighting, hyper realism, octane render, vivid, ultra detailed, highly detailed",
+    "936": "The view from the top of the snowed mountain is breathtaking, with a panoramic vista of the surrounding landscape, beautiful natural soft rim light, big leaves, winged insects and stems",
+    "1008": "A dramatic thunderstorm over the mountain, creating a misty fog that rises up from the peak, sharp focus, trending on artstation, cinematic lighting, hyper realism, octane render",
+    "1080": "The storm rages on and create a gigantic flood, digital painting, trending on art station, concept art, sharp focus, illustration by artgerm, reg rutkowski",
+    "1152": "The flood engulfs the entire mountain, leaving only the peak visible above the water, intricate, detailed and highly realistic, isometric view, depth of field"
+}
+Test_Set
+{
+    "0": "A beautiful sunset over the ocean, realistic, extremely detailed, sharp focus, wide view, smooth, digital illustration, by james jean, by rossdraws, artgerm",
+    "5": "The sun paints the sky with hues of orange, pink, and purple, casting a warm glow over the water, wide view, long view, uncropped, by tomm moore, jean pierre jeunet tim burton, wes anderson ; 4 k 8 k hd high resolution, wide range of colors",
+    "10": "A few clouds in the sky catch the light, creating a stunning contrast against the vibrant colors of the sunset, A beautiful oil painting by rembrandt, trending on art station, realistic and highly detailed",
+    "15": "A flock of seagulls fly across the sunset, creating a striking silhouette against the colorful sky, cute, extremely detailed, sharp focus, wide view, smooth, digital illustration, by james jean, by rossdraws, artgerm",
+    "20": "The sun dips below the horizon, leaving the sky a deep shade of blue, realistic, extremely detailed, sharp focus, wide view, smooth, digital illustration, by james jean, by rossdraws, artgerm",
+    "25": "A bustling city street at night rises up from the ocean, surreal concept art digital painting, in the style of aides lapin by James jean, highly detailed and realistic",
+    "30": "The neon lights of the buildings and billboards illuminate the street with a colorful glow, making it almost as bright as day, hyper realistic, intricate and ornate, gold and turqoise filigree, blue and white porcelai, microdetail, 8h, trending on art station",
+    "35": "People hurry along the sidewalks, their footsteps echoing against the pavement, corporate office setting by James jean Jim Henson j.c. Leyendecker Wes Anderson",
+    "40": "A street performer draws a crowd with their impressive talent, throwing torches into the air, octane 8k render, finely detailed color pencil illustration art by miyazaki, photorealistic",
+    "45": "A snowy mountain peak generates from the street in the style of shangri la by takashi murakami",
+    "50": "The snow-covered mountain is illuminated by the moonlight, casting a soft glow over the landscape, a highly detailed beautiful digital art concept art, extremely detailed, dramatic lighting, trending on art station",
+    "55": "A lone wolf howls at the moon, its voice echoing across the mountain, ultra detailed digital pencil and watercolor and llustration, 4k 8k hd high resolution, cloud of white smoke",
+    "60": "The wolf disappears into the snow, leaving only the moonlight to illuminate the mountain, rococo, sharp focus, trending on artstation, cinematic lighting, hyper realism, octane render, vivid, ultra detailed, highly detailed",
+    "65": "The view from the top of the snowed mountain is breathtaking, with a panoramic vista of the surrounding landscape, beautiful natural soft rim light, big leaves, winged insects and stems",
+    "70": "A dramatic thunderstorm over the mountain, creating a misty fog that rises up from the peak, sharp focus, trending on artstation, cinematic lighting, hyper realism, octane render",
+    "75": "The storm rages on and create a gigantic flood, digital painting, trending on art station, concept art, sharp focus, illustration by artgerm, reg rutkowski",
+    "80": "The flood engulfs the entire mountain, leaving only the peak visible above the water, intricate, detailed and highly realistic, isometric view, depth of field"
+}
