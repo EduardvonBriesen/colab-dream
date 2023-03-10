@@ -1,0 +1,22 @@
+APP:
+  mic_id: 1
+  mode: txt2vid
+  image_width: 512
+  image_height: 512
+  sampling_steps: 12
+  fps: 6
+  buffer: 4
+  path_images: generated_images/
+  path_prompt_txt: prompts/sample.json
+  api_url: http://127.0.0.1:7860
+PROMPT:
+  max_frames: 12
+  # 'frame num : prompt' - separate with '|'
+  animation_prompts: "0: a cat sitting on a ball, anime, pokemon"
+  angle: "0:(0)"
+  zoom: "0: (1.04)"
+  translation_x: "0: (0)"
+  translation_y: "0: (0)"
+  color_coherence: "Match Frame 0 LAB"
+  sampler: "Euler a"
+  fps: 6
