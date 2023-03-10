@@ -93,8 +93,9 @@ def transcribe_forever(audio_queue, result_queue, audio_model, english, verbose,
 
 
 def add_dream(dream):
+    print("\nAdding dream:" + dream)
     dream_list.append(dream)
-    print("Adding dream: " + dream)
+    print("\nGenerating new prompt...")
     response = openai.Completion.create(
         model="text-davinci-003",
         prompt=generate_prompt(),
@@ -103,19 +104,18 @@ def add_dream(dream):
     )
     print("New prompt:" + response.choices[0].text)
     prompt_list.append(response.choices[0].text)
-    send_dream(response.choices[0].text)
+    send_dream(response.choices[0].text.replace("\n", " "))
 
 
 def generate_prompt():
-    print("Generating prompt")
-    return """Generate a new prompt with the phrases {}""".format(
+    return """Describe the average of the dreams in two short sentences using five attributes. One of the sentences should describe the places, the other the persons and their actions.{}""".format(
         dream_list
     )
 
 
 # Sends dream via rest api
 def send_dream(dream):
-    print("Sending dream")
+    print("\nSending dream")
     json = {"prompt": dream}
     response = requests.post(render_url, json=json)
     if response.status_code == 200:
