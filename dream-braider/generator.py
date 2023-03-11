@@ -3,6 +3,7 @@ import requests
 import io
 import os
 import base64
+import sys
 from pathlib import Path
 from PIL import Image, PngImagePlugin
 
@@ -16,6 +17,12 @@ class ImageGenerator:
         self.steps = self.settings['APP']['sampling_steps']
         self.prompts = self.settings['APP']['path_prompt_txt']
         self.output_path = self.settings['APP']['path_images']
+
+    def load_arguments(self, argv):
+        """
+        Loads the prompt arguments from the command line.
+        """
+        return argv
 
     def generate_images(self, file):
         """
@@ -106,5 +113,7 @@ class ImageGenerator:
         image = Image.open(imagePath)
         return image.text
 
-txt2img = ImageGenerator()
-txt2img.generate_video()
+if __name__ == "__main__":
+    txt2img = ImageGenerator()
+    prompt = txt2img.load_arguments(argv=sys.argv[1:])
+    txt2img.generate_video(prompt)
