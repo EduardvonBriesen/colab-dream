@@ -17,12 +17,25 @@ class ImageGenerator:
         self.steps = self.settings['APP']['sampling_steps']
         self.prompts = self.settings['APP']['path_prompt_txt']
         self.output_path = self.settings['APP']['path_images']
+        self.txt2img_method = ''
 
     def load_arguments(self, argv):
         """
         Loads the prompt arguments from the command line.
         """
-        return argv
+        if len(argv) > 0:
+            if argv[0] == "local":
+                self.txt2img_method = 'local'
+            elif argv[0] == "remote":
+                self.txt2img_method = 'remote'
+            else:
+                raise ValueError("First argument must be 'local' or 'remote'")
+
+            return argv[1:]
+        else:
+            raise ValueError("No arguments provided")
+
+        # return argv
 
     def generate_images(self, file):
         """
@@ -67,11 +80,31 @@ class ImageGenerator:
     def generate_video(self, prompt='', iter=0):
         """
         Generates an video with help of the specified prompt.
+        Decides which method to use based on the txt2img_method variable.
+        """
+        if self.txt2img_method == 'local':
+            self.generate_video_local(prompt=prompt, iter=iter)
+        elif self.txt2img_method == 'remote':
+            self.generate_video_remote(prompt=prompt)
+        else:
+            raise ValueError("No txt2img method specified")
+
+    def generate_video_local(self, prompt='', iter=0):
+        """
+        Generates an video with help of the specified prompt.
         The iteration parameter can be used to save the video with a unique name.
         """
         headers = {"Content-Type": "application/json; charset=utf-8"}
 
-        payload = load_prompts('struct/video.json')
+        # payload = load_prompts('struct/test.json')
+
+        video_request(prompt=prompt)
+        payload = load_prompts('struct/request.json')
+
+        # payload = video_request(prompt=prompt)
+        print(payload)
+
+        # payload = video_request(prompt=prompt)
 
         #payload = video_request(prompt=prompt)
 
@@ -96,6 +129,9 @@ class ImageGenerator:
         #     else: 
         #         image.save(f'{self.output_path}/output.png', pnginfo=pngInfo)
 
+    def generate_video_remote(self, prompt=''):
+        pass
+
     def request_metadata(self, image, i):
         """
         Gets the metadata of an image from the stable diffusion webui.
@@ -116,4 +152,5 @@ class ImageGenerator:
 if __name__ == "__main__":
     txt2img = ImageGenerator()
     prompt = txt2img.load_arguments(argv=sys.argv[1:])
-    txt2img.generate_video(prompt)
+
+    txt2img.generate_video(prompt=prompt)
