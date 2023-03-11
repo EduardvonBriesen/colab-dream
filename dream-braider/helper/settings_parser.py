@@ -14,3 +14,14 @@ def load_prompts(path):
             parsed_content = json.load(file)
 
         return parsed_content
+
+def load_json_to_array(path):
+    with open(path, 'r') as file:
+        return json.load(file)
+
+def load_file_to_array(path):
+    with open(path, 'r') as file:
+        return file.read().splitlines()
+
+def save_array_to_json(array):
+    return json.dumps(array)
