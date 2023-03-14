@@ -1,3 +1,5 @@
+# https://github.com/mallorbc/whisper_mic
+
 import os
 import openai
 import io
