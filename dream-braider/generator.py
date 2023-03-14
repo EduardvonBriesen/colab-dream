@@ -4,6 +4,7 @@ import io
 import os
 import base64
 import sys
+import re
 from pathlib import Path
 from PIL import Image, PngImagePlugin
 
@@ -12,7 +13,8 @@ from request import video_request
 
 class ImageGenerator:
     def __init__(self, settings = None, output_path=Path('generated_images/')):
-        self.settings = read_yaml(file_path='settings/config.yaml')
+        self.pwd = str(Path(__file__).parent.absolute())
+        self.settings = read_yaml(file_path=self.pwd + '/settings/config.yaml')
         self.api_url = self.settings['APP']['api_url']
         self.steps = self.settings['APP']['sampling_steps']
         self.prompts = self.settings['APP']['path_prompt_txt']
@@ -31,11 +33,10 @@ class ImageGenerator:
             else:
                 raise ValueError("First argument must be 'local' or 'remote'")
 
-            return argv[1:]
+            # convert list to str; remove [] and ' with regex
+            return re.sub(r"[\[\]']", "", ''.join(argv[1:]))
         else:
             raise ValueError("No arguments provided")
-
-        # return argv
 
     def generate_images(self, file):
         """
@@ -98,8 +99,8 @@ class ImageGenerator:
 
         # payload = load_prompts('struct/test.json')
 
-        video_request(prompt=prompt)
-        payload = load_prompts('struct/request.json')
+        video_request(prompt=prompt, pwd=self.pwd)
+        payload = load_prompts(self.pwd + '/struct/request.json')
 
         # payload = video_request(prompt=prompt)
         print(payload)
