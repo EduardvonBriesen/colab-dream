@@ -5,21 +5,29 @@ import time
 app = Flask(__name__)
 stream = None
 
-path = 'generated_images/default/'
+path = 'C:/Repos/stable-diffusion-webui/outputs/img2img-images/dream/'
 
 def gen():
     i = 0
 
     while True:
-        time.sleep(0.125)
         images = get_all_images()
-        image_name = images[i]
-        im = open(path + image_name, 'rb').read()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + im + b'\r\n')
-        i += 1
-        if i >= len(images):
-            i = 0
+
+        # Buffer which is used to slow down the slideshow
+        buffer = max(0.125, 1 - len(images) * 0.008)
+        print("Buffer: ", buffer)
+        
+        time.sleep(buffer)
+
+        # Check if images are available
+        if images:
+            image_name = images[i]
+            im = open(path + image_name, 'rb').read()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + im + b'\r\n')
+            i += 1
+            if i >= len(images):
+                i = 0
 
 def get_all_images():
     image_folder = path
