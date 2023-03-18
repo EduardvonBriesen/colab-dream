@@ -4,7 +4,10 @@ def video_request(prompt, pwd=''):
     if pwd != '':
         print('pwd: ', pwd)
         string_array = Parser.load_file_to_array(path=pwd + '/struct/video.json')
-    else: string_array = Parser.load_file_to_array(path='struct/video.json')    
+    else: string_array = Parser.load_file_to_array(path='struct/video.json')   
+
+    # add style specifying keywords
+    prompt = Parser.modify_prompt_randomly(input=prompt)
 
     # 2D or 3D
     string_array[7] = '"3D",'
