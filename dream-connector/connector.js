@@ -2,12 +2,12 @@ const { spawn } = require("child_process");
 
 exports.readJson = (req, res) => {
   //do something
-  console.log("Request received");
+  console.log("Dream request received");
   console.log(req.body);
   var largeDataSet = [];
 
   // spawn new child process to call the python script
-  const python = spawn("python", ["../dream-braider/generator.py", "local", Object.values(req.body)]);
+  const python = spawn("python", ["./dream-braider/generator.py", "local", Object.values(req.body)]);
 
   // collect data from script
   python.stdout.on('data', (data) => {
