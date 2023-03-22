@@ -9,6 +9,10 @@ def video_request(prompt, pwd=''):
     # add style specifying keywords
     prompt = Parser.modify_prompt_randomly(input=prompt)
 
+    # get last image of previous prompt
+    # TODO integrate settings from config file
+    first_run, init_image = Parser.get_init_image(folder="C:/Repos/stable-diffusion-webui/outputs/img2img-images/dream")
+
     # 2D or 3D
     string_array[7] = '"3D",'
 
@@ -30,6 +34,8 @@ def video_request(prompt, pwd=''):
     # strength
     string_array[24] = '"0: (-0.13*(cos(3.141*t/13)**100)+0.63)",'
 
+    # cadence: 2 - 4
+    string_array[53] = '2,'
 
     string_array[73] = '"{' + r"\"0\": \"" + f'{prompt}' + r'\"' + '}",'
 
@@ -38,6 +44,19 @@ def video_request(prompt, pwd=''):
 
     # output folder
     string_array[93] = '"dream",'
+
+    # use init image: true or false
+    # first run does not have an init image
+    if first_run: string_array[97] = 'false,'
+    else: string_array[97] = 'true,'
+
+    # init image strength
+    # TODO check if other values are more suitable
+    string_array[100] = '0.65,'
+
+    # init image file
+    if first_run: string_array[101] = '"",'
+    else: string_array[101] = f'"{init_image}",'
 
     # skip video stiching: true or false
     string_array[114] = 'true,'
