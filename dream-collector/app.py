@@ -1,5 +1,6 @@
 # https://github.com/mallorbc/whisper_mic
 
+import sys
 import os
 import openai
 import io
@@ -95,7 +96,8 @@ def transcribe_forever(audio_queue, result_queue, audio_model, english, verbose,
 
 
 def add_dream(dream):
-    print("\nAdding dream:" + dream)
+    print("\nAdding dream:")
+    print_info(dream)
     dream_list.append(dream)
     print("\nGenerating new prompt...")
     response = openai.Completion.create(
@@ -104,7 +106,8 @@ def add_dream(dream):
         temperature=1,
         max_tokens=100,
     )
-    print("New prompt:" + response.choices[0].text)
+    print("New prompt:")
+    print_info(response.choices[0].text)
     prompt_list.append(response.choices[0].text)
     send_dream(response.choices[0].text.replace("\n", " "))
 
@@ -124,6 +127,10 @@ def send_dream(dream):
         print("Dream sent successfully")
     else:
         print("Error sending dream")
+
+
+def print_info(message, end='\n'):
+    sys.stdout.write('\x1b[1;32m' + message.strip() + '\x1b[0m' + end)
 
 
 main()
