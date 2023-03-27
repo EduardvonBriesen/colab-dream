@@ -113,8 +113,9 @@ def add_dream(dream):
 
 
 def generate_prompt():
-    return """Describe the average of the dreams in two short sentences using five attributes. One of the sentences should describe the places, the other the persons and their actions.{}""".format(
-        dream_list
+    recent_dreams = dream_list[-5:]
+    return """Describe the average of the dreams in two short sentences using five attributes. One of the sentences should describe the places, the other the persons and their actions. Translate everything into english.\n{}""".format(
+        recent_dreams
     )
 
 
