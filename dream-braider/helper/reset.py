@@ -28,3 +28,7 @@ if os.path.isdir(os.path.join(parent_path, folder_name)):
 
     # Rename folder
     os.rename(os.path.join(parent_path, folder_name), os.path.join(parent_path, new_folder_name))
+
+    new_folder_path = os.path.join(parent_path, folder_name)
+
+    os.makedirs(new_folder_path)
