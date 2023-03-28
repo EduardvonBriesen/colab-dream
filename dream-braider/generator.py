@@ -15,7 +15,8 @@ class ImageGenerator:
     def __init__(self, settings = None, output_path=Path('generated_images/')):
         self.pwd = str(Path(__file__).parent.absolute())
         self.settings = read_yaml(file_path=self.pwd + '/settings/config.yaml')
-        self.api_url = self.settings['APP']['api_url']
+        self.debug = self.settings['APP']['debug']
+        self.api_url = self.settings['APP']['api_url']        
         self.steps = self.settings['APP']['sampling_steps']
         self.prompts = self.settings['APP']['path_prompt_txt']
         self.output_path = self.settings['APP']['path_images']
@@ -25,6 +26,11 @@ class ImageGenerator:
         """
         Loads the prompt arguments from the command line.
         """
+        if self.debug:
+            print("Starting with static arguments...")
+            self.txt2img_method = 'local'
+            return "car standing on tree leaves"
+
         if len(argv) > 0:
             if argv[0] == "local":
                 self.txt2img_method = 'local'
@@ -99,36 +105,19 @@ class ImageGenerator:
 
         # payload = load_prompts('struct/test.json')
 
-        video_request(prompt=prompt, pwd=self.pwd)
+        # create json file with prompt and settings
+        video_request(prompt=prompt, pwd=self.pwd, settings=self.settings)
+
+        # load pre configured json file
         payload = load_prompts(self.pwd + '/struct/request.json')
-
-        # payload = video_request(prompt=prompt)
-        print(payload)
-
-        # payload = video_request(prompt=prompt)
-
-        #payload = video_request(prompt=prompt)
 
         # send request to server
         response = requests.post(url=f'{self.api_url}/run/predict', headers=headers, json=payload)
 
         r = response.json()
 
-        # TODO Check for alternative method to retrieve images from response
-        # for i in r['images']:
-        #     # decode image
-        #     image = Image.open(io.BytesIO(base64.b64decode(i.split(",",1)[0])))     
-            
-        #     metadata = self.request_metadata(image=image, i=i)
-
-        #     # save image with metadata
-        #     pngInfo = PngImagePlugin.PngInfo()
-        #     pngInfo.add_text("parameters", metadata)
-
-        #     if iter != 0:
-        #         image.save(f'{self.output_path}/{iter}.png', pnginfo=pngInfo)
-        #     else: 
-        #         image.save(f'{self.output_path}/output.png', pnginfo=pngInfo)
+        print("==== RESPONSE ====")
+        print(r)
 
     def generate_video_remote(self, prompt=''):
         pass
