@@ -1,6 +1,6 @@
 import helper.settings_parser as Parser
 
-def video_request(prompt, pwd=''):
+def video_request(prompt, pwd='', settings=None):
     if pwd != '':
         print('pwd: ', pwd)
         string_array = Parser.load_file_to_array(path=pwd + '/struct/video.json')
@@ -11,13 +11,15 @@ def video_request(prompt, pwd=''):
 
     # get last image of previous prompt
     # TODO integrate settings from config file
-    first_run, init_image = Parser.get_init_image(folder="C:/Repos/stable-diffusion-webui/outputs/img2img-images/dream")
+    if settings is not None:
+        first_run, init_image = Parser.get_init_image(folder=settings['APP']['path_dreams'])
+    else: first_run, init_image = Parser.get_init_image(folder="C:/Repos/stable-diffusion-webui/outputs/img2img-images/dream")
 
     # 2D or 3D
     string_array[7] = '"3D",'
 
     # images per prompt
-    string_array[8] = '20,'
+    string_array[8] = '170,'
 
     # tranZ
     string_array[14] = '"0: (3*(sin(3.141*t/50)**3)+.75)",'
@@ -35,7 +37,7 @@ def video_request(prompt, pwd=''):
     string_array[24] = '"0: (-0.13*(cos(3.141*t/13)**100)+0.63)",'
 
     # cadence: 2 - 4
-    string_array[53] = '2,'
+    string_array[53] = '4,'
 
     string_array[73] = '"{' + r"\"0\": \"" + f'{prompt}' + r'\"' + '}",'
 
@@ -52,7 +54,7 @@ def video_request(prompt, pwd=''):
 
     # init image strength
     # TODO check if other values are more suitable
-    string_array[100] = '0.65,'
+    string_array[100] = '0.6,'
 
     # init image file
     if first_run: string_array[101] = '"",'
