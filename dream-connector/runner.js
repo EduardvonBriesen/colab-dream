@@ -9,17 +9,23 @@ function runNextScript() {
     console.log('Prompts in stack: ', promptStack.length);
 
     running = true;
-    const prompt = Object.values(promptStack.pop());
+
+    prompt = ""
+
+    // Check if stack only contains one prompt
+    if (promptStack.length == 1) { prompt = Object.values(promptStack[0]); }
+    else { prompt = Object.values(promptStack.pop()); }
 
     console.log('Current prompt: ', prompt);
 
     // spawn new child process to call the python script; 'local' for use with webui
     const pythonProcess = spawn('python', ['/home/ubuntu/colab-dream/dream-braider/generator.py', "local", prompt]);
+    
     console.log('Dream-Braider running: ', running);
 
     // Listen for data on the standard output stream
     pythonProcess.stdout.on('data', (data) => {
-    //   console.debug(`stdout: ${data}`)
+       console.debug(`stdout: ${data}`)
     });
     
     // Listen for data on the standard error stream
