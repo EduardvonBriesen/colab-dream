@@ -10,7 +10,7 @@ stream = None
 # public_url = ngrok.connect(5000).public_url
 # print("ngrok tunnel \"{}\" -> \"http://127.0.0.1:{}\"".format(public_url, 5000))
 
-path = 'C:/Repos/stable-diffusion-webui/outputs/img2img-images/dream/'
+path = '/home/ubuntu/stable-diffusion-webui/outputs/img2img-images/dream/'
 
 def gen():
     i = 0

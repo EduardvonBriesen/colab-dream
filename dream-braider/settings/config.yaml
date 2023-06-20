@@ -8,7 +8,7 @@ APP:
   fps: 6
   buffer: 4
   path_images: generated_images/
-  path_dreams: C:/Repos/stable-diffusion-webui/outputs/img2img-images/dream
+  path_dreams: /home/ubuntu/stable-diffusion-webui/outputs/img2img-images/dream
   path_prompt_txt: prompts/sample.json
   api_url: http://127.0.0.1:7860
 PROMPT:

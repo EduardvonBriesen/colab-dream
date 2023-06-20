@@ -8,7 +8,7 @@ now = datetime.now()
 date_time = now.strftime("%Y-%m-%d_%H-%M-%S")
 
 # Set parent directory path
-parent_path = 'C:\Repos\stable-diffusion-webui\outputs\img2img-images'
+parent_path = '/home/ubuntu/stable-diffusion-webui/outputs/img2img-images'
 
 # Check if "dream" folder exists and hasn't been renamed yet
 if os.path.isdir(os.path.join(parent_path, folder_name)):

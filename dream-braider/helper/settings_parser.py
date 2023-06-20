@@ -35,7 +35,7 @@ def modify_prompt_randomly(input: str) -> str:
     
     @param input: The prompt to modify.
     """
-    data = load_json_to_array("dream-braider\struct\prompt_specifiers.json")
+    data = load_json_to_array("/home/ubuntu/colab-dream/dream-braider/struct/prompt_specifiers.json")
 
     wordgroups = data['wordgroups']
     neg_keywords = data['neg_keywords']

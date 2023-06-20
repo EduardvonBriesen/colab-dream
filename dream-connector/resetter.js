@@ -7,7 +7,7 @@ exports.reset = (req, res) => {
   var largeDataSet = [];
 
   // spawn new child process to call the python script
-  const python = spawn("python", ["./dream-braider/helper/reset.py"]);
+  const python = spawn("python", ["/home/ubuntu/colab-dream/dream-braider/helper/reset.py"]);
 
   // collect data from script
   python.stdout.on('data', (data) => {

@@ -14,7 +14,7 @@ function runNextScript() {
     console.log('Current prompt: ', prompt);
 
     // spawn new child process to call the python script; 'local' for use with webui
-    const pythonProcess = spawn('python', ['./dream-braider/generator.py', "local", prompt]);
+    const pythonProcess = spawn('python', ['/home/ubuntu/colab-dream/dream-braider/generator.py', "local", prompt]);
     console.log('Dream-Braider running: ', running);
 
     // Listen for data on the standard output stream
