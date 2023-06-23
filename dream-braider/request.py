@@ -13,7 +13,7 @@ def video_request(prompt, pwd='', settings=None):
     # TODO integrate settings from config file
     if settings is not None:
         first_run, init_image = Parser.get_init_image(folder=settings['APP']['path_dreams'])
-    else: first_run, init_image = Parser.get_init_image(folder="C:/Repos/stable-diffusion-webui/outputs/img2img-images/dream")
+    else: first_run, init_image = Parser.get_init_image(folder="/home/ubuntu/stable-diffusion-webui/outputs/img2img-images/dream")
 
     # 2D or 3D
     string_array[7] = '"3D",'
