@@ -65,7 +65,11 @@ def get_init_image(folder: str) -> [bool, str]:
                 if mod_time > last_mod_time:
                     last_mod_time = mod_time
                     init_image = file_path
+
+        # Check if system is windows for path conversion
+        if os.name == 'nt':
+            init_image = re.sub(r"[\\/]", r"\\\\", init_image)
     except:
         first_run = True
 
-    return first_run, re.sub(r"[\\/]", r"\\\\", init_image)
+    return first_run, init_image
