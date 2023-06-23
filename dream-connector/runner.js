@@ -14,7 +14,7 @@ function runNextScript() {
 
     // Check if stack only contains one prompt
     if (promptStack.length == 1) { prompt = Object.values(promptStack[0]); }
-    else { prompt = Object.values(promptStack.pop()); }
+    else { prompt = Object.values(promptStack.shift()); }
 
     console.log('Current prompt: ', prompt);
 
