@@ -14,6 +14,7 @@ import click
 import torch
 import numpy as np
 import requests
+import keyboard
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 render_url = "http://localhost:8000/prompt"
@@ -43,10 +44,24 @@ def main(model, english, verbose, energy, pause, dynamic_energy, save_file):
     threading.Thread(target=transcribe_forever,
                      args=(audio_queue, result_queue, audio_model, english, verbose, save_file)).start()
 
+    keyboard.on_press_key('shift', on_key_press)
+    keyboard.on_release_key('shift', on_key_release)
+
+    # Keep the program running
+    keyboard.wait('esc')
+
     while True:
         # print(result_queue.get())
         add_dream(result_queue.get())
         # send_dream(result_queue.get())
+
+
+def on_key_press(event):
+    print(f"Key {event.name} pressed.")
+
+
+def on_key_release(event):
+    print(f"Key {event.name} released.")
 
 
 def record_audio(audio_queue, energy, pause, dynamic_energy, save_file, temp_dir):
