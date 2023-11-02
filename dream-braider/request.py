@@ -3,8 +3,8 @@ import helper.settings_parser as Parser
 def video_request(prompt, pwd='', settings=None):
     if pwd != '':
         print('pwd: ', pwd)
-        string_array = Parser.load_file_to_array(path=pwd + '/struct/video.json')
-    else: string_array = Parser.load_file_to_array(path='struct/video.json')   
+        string_array = Parser.load_file_to_array(path=pwd + '/struct/request_warszawa.json')
+    else: string_array = Parser.load_file_to_array(path='struct/request_warszawa.json')   
 
     # add style specifying keywords
     prompt = Parser.modify_prompt_randomly(input=prompt)
@@ -16,55 +16,57 @@ def video_request(prompt, pwd='', settings=None):
     else: first_run, init_image = Parser.get_init_image(folder="/home/ubuntu/stable-diffusion-webui/outputs/img2img-images/dream")
 
     # 2D or 3D
-    string_array[7] = '"3D",'
+    string_array[36] = '"animation_mode": "3D",'
 
     # images per prompt
-    string_array[8] = '170,'
+    string_array[37] = '"max_frames": 30,'
 
     # tranZ
-    string_array[14] = '"0: (3*(sin(3.141*t/50)**3)+.75)",'
+    string_array[43] = '"translation_z": "0: (3*(sin(3.141*t/50)**3)+.75)",'
 
     # rotX
-    string_array[15] = '"0: (0.25*sin(2*3.141*t/250))",'
+    string_array[46] = '"rotation_3d_x": "0: (0.25*sin(2*3.141*t/250))",'
 
     # rotY
-    string_array[16] = '"0: (0.25*sin(2*3.141*t/250))",'
+    string_array[47] = '"rotation_3d_y": "0: (0.25*sin(2*3.141*t/250))",'
 
     # rotZ
-    string_array[17] = '"0: (0.5*sin(2*3.141*t/250))",'
+    string_array[48] = '"rotation_3d_z": "0: (0.5*sin(2*3.141*t/250))",'
 
     # strength
-    string_array[24] = '"0: (-0.13*(cos(3.141*t/13)**100)+0.63)",'
+    string_array[55] = '"strength_schedule": "0: (-0.13*(cos(3.141*t/13)**100)+0.63)",'
 
     # cadence: 2 - 4
-    string_array[53] = '4,'
+    string_array[96] = '"diffusion_cadence": 4,'
 
-    string_array[73] = '"{' + r"\"0\": \"" + f'{prompt}' + r'\"' + '}",'
+    # string_array[33] = '"prompts": '+ '"{' + r"\"0\": \"" + f'{prompt}' + r'\"' + '}",'
+    string_array[33] = f'"prompts": {{"0": "{prompt}"}},'
+    # string_array[33] = '"prompts": '+ '"{' + '": "' + f'{prompt}' + '"' + '}",'
 
     # steps
-    string_array[85] = '20,'
+    string_array[11] = '"steps": 20,'
 
     # output folder
-    string_array[93] = '"dream",'
+    string_array[12] = '"batch_name": "dream",'
 
     # use init image: true or false
     # first run does not have an init image
-    if first_run: string_array[97] = 'false,'
-    else: string_array[97] = 'true,'
+    if first_run: string_array[15] = '"use_init": false,'
+    else: string_array[15] = '"use_init": true,'
 
     # init image strength
     # TODO check if other values are more suitable
-    string_array[100] = '0.6,'
+    string_array[16] = '"strength": 0.6,'
 
     # init image file
-    if first_run: string_array[101] = '"",'
-    else: string_array[101] = f'"{init_image}",'
+    if first_run: string_array[18] = '"init_image": null,'
+    else: string_array[18] = f'"init_image": "{init_image}",'
 
     # skip video stiching: true or false
-    string_array[114] = 'true,'
+    string_array[234] = '"skip_video_creation": true,'
 
     # FPS
-    string_array[115] = '8,'
+    string_array[235] = '"fps": 8,'
 
     request_string = "\n".join(string_array)
 

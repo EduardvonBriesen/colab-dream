@@ -112,7 +112,8 @@ class ImageGenerator:
         payload = load_prompts(self.pwd + '/struct/request.json')
 
         # send request to server
-        response = requests.post(url=f'{self.api_url}/run/predict', headers=headers, json=payload)
+        # response = requests.post(url=f'{self.api_url}/run/predict', headers=headers, json=payload)
+        response = requests.post(url=f'{self.api_url}/deforum_api/batches', headers=headers, json=payload)
 
         r = response.json()
 

@@ -10,7 +10,7 @@ stream = None
 # public_url = ngrok.connect(5000).public_url
 # print("ngrok tunnel \"{}\" -> \"http://127.0.0.1:{}\"".format(public_url, 5000))
 
-path = '/home/ubuntu/stable-diffusion-webui/outputs/img2img-images/dream/'
+path = '/workspace/stable-diffusion-webui/outputs/img2img-images/dream/'
 
 def gen():
     i = 0
@@ -19,7 +19,7 @@ def gen():
     processed_images = []
 
     while True:
-        images = get_all_images()
+        images = sorted(get_all_images())
 
         unprocessed_images = [img for img in images if img not in processed_images]
 

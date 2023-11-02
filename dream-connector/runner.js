@@ -19,8 +19,7 @@ function runNextScript() {
     console.log('Current prompt: ', prompt);
 
     // spawn new child process to call the python script; 'local' for use with webui
-    const pythonProcess = spawn('python', ['/home/ubuntu/colab-dream/dream-braider/generator.py', "local", prompt]);
-    
+    const pythonProcess = spawn('python', ['/workspace/colab-dream/dream-braider/generator.py', "local", prompt]);
     console.log('Dream-Braider running: ', running);
 
     // Listen for data on the standard output stream
@@ -37,10 +36,11 @@ function runNextScript() {
       console.log(`Python script finished with code ${code}`);
       running = false;
       console.log('Dream-Braider running: ', running);
-      runNextScript();
+      setTimeout(runNextScript, 10000);
     });
   }
   if (!running) setTimeout(runNextScript, 3000);
+  // else setTimeout(runNextScript, 10000);
 }
 
 module.exports = {
