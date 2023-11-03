@@ -6,8 +6,18 @@
 </head>
 
 <body>
-    <video id="current-video" autoplay muted playsinline src="/video_feed" type="video/mp4"></video>
-    <video id="next-video" muted playsinline src="/video_feed?index=1" type="video/mp4" style="display: none"></video>
+    <style>
+        video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <video id="current-video" autoplay muted playsinline src="/video_feed" type="video/mp4" style=""></video>
+    <video id=" next-video" muted playsinline src="/video_feed?index=1" type="video/mp4" style="display: none"></video>
     <script>
         const video = document.getElementById('current-video');
         const nextVideo = document.getElementById('next-video');
