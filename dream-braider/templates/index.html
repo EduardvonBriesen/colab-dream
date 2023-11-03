@@ -4,27 +4,36 @@
     <title>Video Stream</title>
 </head>
 <body>
-    <video id="videoPlayer" autoplay muted playsinline>
-        <source src="/video" type="video/mp4">
-    </video>
-    <script>
-        const videoPlayer = document.getElementById('videoPlayer');
-        
-        function loadNextVideo() {
-            fetch('/get_video_list')
-                .then(response => response.json())
-                .then(data => {
-                    const nextVideo = data.shift();
-                    if (nextVideo) {
-                        videoPlayer.src = '/video';
-                        videoPlayer.load();
-                    }
-                });
-        }
+<video id="current-video" autoplay muted playsinline  src="/video_feed" type="video/mp4"></video>
+<video id="next-video" muted playsinline  src="/video_feed?index=1" type="video/mp4" style="display: none"></video>
+<script>
+    const video = document.getElementById('current-video');
+    const nextVideo = document.getElementById('next-video');
+    
+    let index = 0;
 
-        videoPlayer.addEventListener('ended', loadNextVideo);
-        loadNextVideo();
-    </script>
+    video.addEventListener('ended', () => {
+        index += 1;
+
+        video.style.display = 'none';
+        nextVideo.style.display = 'block';
+        video.src = `/video_feed?index=${index + 1}`;
+        video.load();
+        nextVideo.play();
+        console.log('play video');
+    });
+
+    nextVideo.addEventListener('ended', () => {
+        index += 1;
+        video.style.display = 'block';
+        nextVideo.style.display = 'none';
+        nextVideo.src = `/video_feed?index=${index + 1}`;
+        nextVideo.load();
+        video.play();
+        console.log('play next video');
+        
+    });
+</script>
 </body>
 </html>
 
