@@ -68,6 +68,8 @@ def video_request(prompt, pwd='', settings=None):
     # FPS
     string_array[235] = '"fps": 8,'
 
+    string_array[252] = '"sd_model_name": "v1-5-pruned.ckpt",'
+
     request_string = "\n".join(string_array)
 
     with open(pwd + '/struct/request.json', 'w') as file:
