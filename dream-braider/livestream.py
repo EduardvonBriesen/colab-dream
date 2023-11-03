@@ -11,9 +11,6 @@ def get_video_files(directory):
     sorted_videos = sorted(video_files, key=lambda x: os.path.getctime(x))
     return sorted_videos
 
-
-video_index = 0
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -33,11 +30,14 @@ def video_feed():
     index = int(request.args.get('index', 0))
     return Response(generate_video(index), mimetype='video/mp4')
 
-@app.route('/next_video')
-def next_video():
-    global video_index
-    video_index += 1 # TODO: Break condition
-    return 'Switching to the next video'
+@app.route('/buffer_size')
+def get_buffer_size():
+    index = int(request.args.get('index', 0))
+    remaining_videos = get_video_files(video_directory)
+    if(index >= len(remaining_videos)):
+        return jsonify(0)
+    length = len(remaining_videos[index:])
+    return jsonify(length)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

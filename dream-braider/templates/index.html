@@ -1,39 +1,51 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Video Stream</title>
 </head>
+
 <body>
-<video id="current-video" autoplay muted playsinline  src="/video_feed" type="video/mp4"></video>
-<video id="next-video" muted playsinline  src="/video_feed?index=1" type="video/mp4" style="display: none"></video>
-<script>
-    const video = document.getElementById('current-video');
-    const nextVideo = document.getElementById('next-video');
-    
-    let index = 0;
+    <video id="current-video" autoplay muted playsinline src="/video_feed" type="video/mp4"></video>
+    <video id="next-video" muted playsinline src="/video_feed?index=1" type="video/mp4" style="display: none"></video>
+    <script>
+        const video = document.getElementById('current-video');
+        const nextVideo = document.getElementById('next-video');
 
-    video.addEventListener('ended', () => {
-        index += 1;
+        let index = 1;
+        let bufferSize = 0;
 
-        video.style.display = 'none';
-        nextVideo.style.display = 'block';
-        video.src = `/video_feed?index=${index + 1}`;
-        video.load();
-        nextVideo.play();
-        console.log('play video');
-    });
+        video.addEventListener('ended', async () => {
+            await switchVideo(video, nextVideo);
+        });
 
-    nextVideo.addEventListener('ended', () => {
-        index += 1;
-        video.style.display = 'block';
-        nextVideo.style.display = 'none';
-        nextVideo.src = `/video_feed?index=${index + 1}`;
-        nextVideo.load();
-        video.play();
-        console.log('play next video');
-        
-    });
-</script>
+        nextVideo.addEventListener('ended', async () => {
+            await switchVideo(nextVideo, video);
+        });
+
+        async function switchVideo(current, next) {
+            index += 1;
+
+            while (this.bufferSize < 1) {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                this.bufferSize = await fetch(`/buffer_size?index=${index + 1}`).then(res => res.json());
+                console.log('bufferSize', this.bufferSize);
+            }
+
+            current.style.display = 'none';
+            next.style.display = 'block';
+            current.src = `/video_feed?index=${index}`;
+            current.load();
+            next.play();
+
+            this.bufferSize = await fetch(`/buffer_size?index=${index}`).then(res => res.json());
+
+            video.playbackRate = 0.6 + bufferSize * 0.2;
+
+            console.log('switched');
+            console.log('playbackRate', video.playbackRate, 'bufferSize', this.bufferSize);
+        }
+    </script>
 </body>
-</html>
 
+</html>
