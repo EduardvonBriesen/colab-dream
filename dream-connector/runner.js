@@ -36,7 +36,7 @@ function runNextScript() {
       console.log(`Python script finished with code ${code}`);
       running = false;
       console.log('Dream-Braider running: ', running);
-      setTimeout(runNextScript, 10000);
+      runNextScript();
     });
   }
   if (!running) setTimeout(runNextScript, 3000);

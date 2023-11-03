@@ -8,8 +8,14 @@ import re
 from pathlib import Path
 from PIL import Image, PngImagePlugin
 
+from helper.utils import (API_BASE_URL, wait_for_job_to_complete,
+                   wait_for_job_to_enter_phase, wait_for_job_to_enter_status)
+
 from helper.settings_parser import read_yaml, load_prompts
 from request import video_request
+
+from scripts.deforum_api_models import (DeforumJobPhase, DeforumJobStatus,
+                                        DeforumJobStatusCategory)
 
 class ImageGenerator:
     def __init__(self, settings = None, output_path=Path('generated_images/')):
@@ -65,7 +71,7 @@ class ImageGenerator:
             }
 
         # send request to server
-        response = requests.post(url=f'{self.api_url}/sdapi/v1/txt2img', json=payload)
+        response = requests.post(url=f'{self.api_url}/deforum_api/batches', json=payload)
 
         r = response.json()
 
@@ -101,24 +107,49 @@ class ImageGenerator:
         Generates an video with help of the specified prompt.
         The iteration parameter can be used to save the video with a unique name.
         """
-        headers = {"Content-Type": "application/json; charset=utf-8"}
-
-        # payload = load_prompts('struct/test.json')
-
         # create json file with prompt and settings
         video_request(prompt=prompt, pwd=self.pwd, settings=self.settings)
 
         # load pre configured json file
-        payload = load_prompts(self.pwd + '/struct/request.json')
+        deforum_payload = load_prompts(self.pwd + '/struct/request.json')
+        
+        response = requests.post(API_BASE_URL+"/batches", json=deforum_payload)
+                                #  {
+        # "deforum_settings":[deforum_payload],
+        # "options_overrides": {
+            # "deforum_save_gen_info_as_srt": True,
+            # "deforum_save_gen_info_as_srt_params": get_user_values(),
+            # }
+        # })
+        response.raise_for_status()
+        job_id = response.json()["job_ids"][0]
+        jobStatus = wait_for_job_to_complete(job_id)
+    
+        print()
+        print("Job-Status")
+        print(jobStatus)
+        assert jobStatus.status == DeforumJobStatusCategory.SUCCEEDED, f"Job {job_id} failed: {jobStatus}"
 
-        # send request to server
-        # response = requests.post(url=f'{self.api_url}/run/predict', headers=headers, json=payload)
-        response = requests.post(url=f'{self.api_url}/deforum_api/batches', headers=headers, json=payload)
 
-        r = response.json()
 
-        print("==== RESPONSE ====")
-        print(r)
+        # headers = {"Content-Type": "application/json; charset=utf-8"}
+
+        # # payload = load_prompts('struct/test.json')
+
+        # # create json file with prompt and settings
+        # video_request(prompt=prompt, pwd=self.pwd, settings=self.settings)
+
+        # # load pre configured json file
+        # payload = load_prompts(self.pwd + '/struct/request.json')
+
+        # # send request to server
+        # # response = requests.post(url=f'{self.api_url}/run/predict', headers=headers, json=payload)
+        # response = requests.post(url=f'{self.api_url}/deforum_api/batches', headers=headers, json=payload)
+
+        # r = response.json()
+
+        # print("==== RESPONSE ====")
+        # print(r)
 
     def generate_video_remote(self, prompt=''):
         pass
@@ -145,3 +176,4 @@ if __name__ == "__main__":
     prompt = txt2img.load_arguments(argv=sys.argv[1:])
 
     txt2img.generate_video(prompt=prompt)
+    # txt2img.generate_video(prompt="dog sitting on ball")
