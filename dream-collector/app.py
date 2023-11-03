@@ -101,7 +101,7 @@ def add_dream(dream):
     dream_list.append(dream)
     print("\nGenerating new prompt...")
     response = openai.Completion.create(
-        model="text-davinci-003",
+        model="gpt-3.5-turbo-instruct",
         prompt=generate_prompt(),
         temperature=1,
         max_tokens=100,
