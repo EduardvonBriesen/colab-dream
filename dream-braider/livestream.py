@@ -4,7 +4,7 @@ from flask import Flask, render_template, Response, jsonify, request
 app = Flask(__name__)
 
 # Define the path to the directory where videos are located
-video_directory = './video'
+video_directory = '../../stable-diffusion-webui/outputs/img2img-images/dream'
 
 def get_video_files(directory):
     video_files = [os.path.join(directory, filename) for filename in os.listdir(directory) if filename.endswith('.mp4')]
@@ -17,6 +17,7 @@ def index():
 
 def generate_video(index):
     video_path = os.path.join(get_video_files(video_directory)[index])
+    print(video_path)
     
     with open(video_path, 'rb') as video:
         while True:

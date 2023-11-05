@@ -7,24 +7,33 @@
 
 <body>
     <style>
-        video {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            position: fixed;
+        .video-container {
+            position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
         }
     </style>
-    <video id="current-video" autoplay muted playsinline src="/video_feed" type="video/mp4"></video>
-    <video id="next-video" muted playsinline src="/video_feed?index=1" type="video/mp4" style="display: none"></video>
+    <div class="video-container">
+        <video id="current-video" autoplay muted playsinline src="/video_feed" type="video/mp4"></video>
+        <video id="next-video" muted playsinline src="/video_feed?index=1" type="video/mp4"
+            style="display: none"></video>
+    </div>
     <script>
         const video_1 = document.getElementById('current-video');
         const video_2 = document.getElementById('next-video');
 
         let currentVideo = video_1;
 
-        let index = 1;
+        let index = 16;
         let bufferSize = 0;
 
         video_1.addEventListener('ended', async () => {
@@ -50,7 +59,7 @@
         async function adjustPlaybackSpeed() {
             const bufferSize = await fetch(`/buffer_size?index=${index}`).then(res => res.json());
             let remainingTime = currentVideo.duration - currentVideo.currentTime + (bufferSize * 20);
-            currentVideo.playbackRate = Math.min(1.5, remainingTime / 60);
+            currentVideo.playbackRate = Math.min(10, (parseInt(remainingTime * 1.5) / 100));
             console.log('remainingTime: ', remainingTime, 'playbackRate:', currentVideo.playbackRate);
         }
 
