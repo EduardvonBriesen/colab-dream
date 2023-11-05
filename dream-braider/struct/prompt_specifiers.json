@@ -1,24 +1,9 @@
 {
     "wordgroups": [
-        "realistic, extremely detailed, sharp focus, wide view, smooth, digital illustration, by james jean, by rossdraws, artgerm",
-        "wide view, long view, uncropped, by tomm moore, jean pierre jeunet tim burton, wes anderson ; 4k 8k hd high resolution, wide range of colors",
-        "a beautiful oil painting by rembrandt, trending on art station, realistic and highly detailed",
-        "cute, extremely detailed, sharp focus, wide view, smooth, digital illustration, by james jean, by rossdraws, artgerm",
-        "realistic, extremely detailed, sharp focus, wide view, smooth, digital illustration, by james jean, by rossdraws, artgerm",
-        "surreal concept art digital painting, in the style of aides lapin by James jean, highly detailed and realistic",
-        "hyper realistic, intricate and ornate, gold and turqoise filigree, blue and white porcelai, microdetail, 8h, trending on art station",
-        "corporate office setting by James jean Jim Henson j.c. Leyendecker Wes Anderson",
-        "octane 8k render, finely detailed color pencil illustration art by miyazaki, photorealistic",
-        "highly detailed beautiful digital art concept art, extremely detailed, dramatic lighting, trending on art station",
-        "ultra detailed digital pencil and watercolor and llustration, 4k 8k hd high resolution, cloud of white smoke",
-        "rococo, sharp focus, trending on artstation, cinematic lighting, hyper realism, octane render, vivid, ultra detailed, highly detailed",
-        "beautiful natural soft rim light, big leaves, winged insects and stems",
-        "sharp focus, trending on artstation, cinematic lighting, hyper realism, octane render",
-        "digital painting, trending on art station, concept art, sharp focus, illustration by artgerm, reg rutkowski",
-        "intricate, detailed and highly realistic, isometric view, depth of field"
+        "extremely detailed, sharp focus, wide view, smooth, digital illustration, by james jean, by rossdraws, artgerm"
     ],
     "neg_keywords": {
-        "fixed": ["unintentional mistakes, errors, mismatched colors, clashing colors, lacking in depth, lacking in dimensionality"],
+        "fixed": ["nude, jpeg artifacts, low quality, lowres, text, watermark, logo, text, letters, signature, username, words, blurry, cropped, cartoon, worst quality, ((split images)), out of frame, duplicate, unintentional mistakes, errors, cutoff faces, cutoff bodies, dark corners, dark outer area, blurry corners,"],
         "primary": ["Blurry and distorted", "Overexposed and washed out", "Pixelated and low-quality", "Unfocused and hazy"],
         "secondary": ["Grainy and noisy", "Dull and lifeless", "Messy and cluttered", "Inconsistent and uneven", "Uninspired and generic", "Unbalanced and disproportionate"],
         "tertiary": ["Incoherent and confusing", "Unprofessional and amateurish", "Tacky and tasteless", "Offensive and inappropriate", "Poorly composed and framed", "Unoriginal and derivative"]
