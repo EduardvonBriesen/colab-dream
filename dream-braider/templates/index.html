@@ -33,8 +33,15 @@
 
         let currentVideo = video_1;
 
-        let index = 16;
+        let index = 1;
         let bufferSize = 0;
+
+        setIndex();
+
+        async function setIndex() {
+            let buffer = await fetch(`/buffer_size`).then(res => res.json());
+            if (buffer > 5) index = buffer - 5;
+        }
 
         video_1.addEventListener('ended', async () => {
             await switchVideo(video_1, video_2);
@@ -54,6 +61,7 @@
             next.play();
 
             currentVideo = next;
+            adjustPlaybackSpeed();
         }
 
         async function adjustPlaybackSpeed() {
